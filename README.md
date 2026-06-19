@@ -1,6 +1,7 @@
 # Smart Scheduling Assistant
 
-Calendar plugin for CortexPrism — Google Calendar, Outlook Calendar, and Cal.com integration for intelligent meeting scheduling with conflict avoidance and automated rescheduling.
+Calendar plugin for CortexPrism — Google Calendar, Outlook Calendar, and Cal.com integration for
+intelligent meeting scheduling with conflict avoidance and automated rescheduling.
 
 ## Installation
 
@@ -10,13 +11,13 @@ cortex plugin install github:CortexPrism/cortex-plugin-scheduling
 
 ## Tools
 
-| Tool | Description |
-|------|-------------|
-| `sched_find_slots` | Find open meeting slots across calendars and attendees |
-| `sched_create_event` | Create calendar event with optional prep brief |
-| `sched_list_events` | List upcoming events with search and date filters |
+| Tool                   | Description                                              |
+| ---------------------- | -------------------------------------------------------- |
+| `sched_find_slots`     | Find open meeting slots across calendars and attendees   |
+| `sched_create_event`   | Create calendar event with optional prep brief           |
+| `sched_list_events`    | List upcoming events with search and date filters        |
 | `sched_get_busy_times` | Get busy/free time blocks for availability visualization |
-| `sched_reschedule` | Reschedule event, notify attendees, suggest alternatives |
+| `sched_reschedule`     | Reschedule event, notify attendees, suggest alternatives |
 
 ## Configuration
 

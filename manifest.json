@@ -1,0 +1,286 @@
+{
+  "name": "cortex-plugin-scheduling",
+  "version": "1.0.0",
+  "description": "Smart Scheduling Assistant — Google Calendar, Outlook Calendar, and Cal.com integration for intelligent meeting scheduling with conflict avoidance, agenda prep, and automated rescheduling",
+  "kind": "esm",
+  "entryPoint": "mod.ts",
+  "runtime": "deno",
+  "author": "CortexPrism",
+  "license": "MIT",
+  "repository": "https://github.com/CortexPrism/cortex-plugin-scheduling",
+  "homepage": "https://cortexprism.io/marketplace/plugins/scheduling",
+  "capabilities": ["tools", "network:fetch"],
+  "tools": [
+    {
+      "name": "sched_find_slots",
+      "description": "Find open meeting time slots across multiple calendars considering time zones, working hours, and priority",
+      "params": [
+        {
+          "name": "platform",
+          "type": "string",
+          "description": "Calendar platform",
+          "required": true,
+          "enum": ["google", "outlook", "calcom", "all"]
+        },
+        {
+          "name": "attendees",
+          "type": "string",
+          "description": "Comma-separated attendee emails to check availability",
+          "required": true
+        },
+        {
+          "name": "duration_minutes",
+          "type": "number",
+          "description": "Meeting duration in minutes (default: 30)",
+          "required": false
+        },
+        {
+          "name": "date_range",
+          "type": "string",
+          "description": "Date range: 'this_week', 'next_week', 'next_3_days'",
+          "required": false
+        },
+        {
+          "name": "earliest_hour",
+          "type": "number",
+          "description": "Earliest meeting hour (0-23, default: 9)",
+          "required": false
+        },
+        {
+          "name": "latest_hour",
+          "type": "number",
+          "description": "Latest meeting hour (0-23, default: 17)",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "sched_create_event",
+      "description": "Create a calendar event with title, attendees, description, and optional prep brief generated from memory",
+      "params": [
+        {
+          "name": "platform",
+          "type": "string",
+          "description": "Calendar platform",
+          "required": true,
+          "enum": ["google", "outlook", "calcom"]
+        },
+        { "name": "title", "type": "string", "description": "Event title", "required": true },
+        {
+          "name": "start_time",
+          "type": "string",
+          "description": "Start time (ISO 8601)",
+          "required": true
+        },
+        {
+          "name": "end_time",
+          "type": "string",
+          "description": "End time (ISO 8601)",
+          "required": true
+        },
+        {
+          "name": "attendees",
+          "type": "string",
+          "description": "Comma-separated attendee emails",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Event description or agenda",
+          "required": false
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "description": "Physical location or video link",
+          "required": false
+        },
+        {
+          "name": "prep_brief",
+          "type": "boolean",
+          "description": "Generate prep brief from Cortex memory and recent context",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "sched_list_events",
+      "description": "List upcoming calendar events with filters for date range and calendar selection",
+      "params": [
+        {
+          "name": "platform",
+          "type": "string",
+          "description": "Calendar platform",
+          "required": true,
+          "enum": ["google", "outlook", "calcom", "all"]
+        },
+        {
+          "name": "start_date",
+          "type": "string",
+          "description": "Start date (YYYY-MM-DD)",
+          "required": false
+        },
+        {
+          "name": "end_date",
+          "type": "string",
+          "description": "End date (YYYY-MM-DD)",
+          "required": false
+        },
+        {
+          "name": "search",
+          "type": "string",
+          "description": "Search event title",
+          "required": false
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "description": "Max results (default: 25)",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "sched_get_busy_times",
+      "description": "Get busy/free time blocks for attendees to visualize availability",
+      "params": [
+        {
+          "name": "platform",
+          "type": "string",
+          "description": "Calendar platform",
+          "required": true,
+          "enum": ["google", "outlook", "calcom"]
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "description": "Email of person to check (or comma-separated list)",
+          "required": true
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "description": "Date to check (YYYY-MM-DD)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "sched_reschedule",
+      "description": "Reschedule an existing event, notify all attendees, and suggest alternative times",
+      "params": [
+        {
+          "name": "platform",
+          "type": "string",
+          "description": "Calendar platform",
+          "required": true,
+          "enum": ["google", "outlook", "calcom"]
+        },
+        {
+          "name": "event_id",
+          "type": "string",
+          "description": "Event ID to reschedule",
+          "required": true
+        },
+        {
+          "name": "new_start_time",
+          "type": "string",
+          "description": "New start time (ISO 8601)",
+          "required": true
+        },
+        {
+          "name": "new_end_time",
+          "type": "string",
+          "description": "New end time (ISO 8601)",
+          "required": true
+        },
+        {
+          "name": "notify_message",
+          "type": "string",
+          "description": "Custom message to attendees",
+          "required": false
+        },
+        {
+          "name": "find_alternatives",
+          "type": "boolean",
+          "description": "Find and suggest alternative times if new time conflicts",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "dependencies": {},
+  "peerDependencies": { "cortex": ">=1.0.0" },
+  "ui": {
+    "settings": [
+      {
+        "section": "Google Calendar",
+        "fields": [
+          {
+            "key": "googleClientId",
+            "label": "Google OAuth Client ID",
+            "type": "text",
+            "defaultValue": ""
+          },
+          {
+            "key": "googleClientSecret",
+            "label": "Google OAuth Client Secret",
+            "type": "secret",
+            "defaultValue": ""
+          }
+        ]
+      },
+      {
+        "section": "Outlook Calendar",
+        "fields": [
+          {
+            "key": "outlookClientId",
+            "label": "Azure AD Client ID",
+            "type": "text",
+            "defaultValue": ""
+          },
+          {
+            "key": "outlookClientSecret",
+            "label": "Azure AD Client Secret",
+            "type": "secret",
+            "defaultValue": ""
+          }
+        ]
+      },
+      {
+        "section": "Preferences",
+        "fields": [
+          {
+            "key": "defaultDuration",
+            "label": "Default Meeting Duration (min)",
+            "type": "number",
+            "defaultValue": 30
+          },
+          {
+            "key": "workingHoursStart",
+            "label": "Working Hours Start",
+            "type": "number",
+            "defaultValue": 9
+          },
+          {
+            "key": "workingHoursEnd",
+            "label": "Working Hours End",
+            "type": "number",
+            "defaultValue": 17
+          },
+          {
+            "key": "timezone",
+            "label": "Default Timezone",
+            "type": "text",
+            "defaultValue": "America/Chicago"
+          }
+        ]
+      }
+    ]
+  },
+  "aiDisclosure": {
+    "tools": ["Kilo (DeepSeek) — scaffold and implementation"],
+    "humanReview": true
+  }
+}

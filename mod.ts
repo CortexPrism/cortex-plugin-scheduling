@@ -8,11 +8,11 @@
  * Plugin #214 from plugin-ideas.md
  */
 
-import type { PluginContext, Tool, ToolResult } from 'cortex/plugins';
+import type { PluginContext, Tool, ToolCallResult } from 'cortex/plugins';
 
 const PLATFORMS = ['google', 'outlook', 'calcom', 'all'] as const;
 
-function check(p: string): ToolResult | null {
+function check(p: string): ToolCallResult | null {
   if (!PLATFORMS.includes(p as typeof PLATFORMS[number])) {
     return {
       toolName: '',
@@ -75,7 +75,7 @@ const findSlots: Tool = {
     ],
     capabilities: ['network:fetch'],
   },
-  execute: async (args, ctx): Promise<ToolResult> => {
+  execute: async (args, ctx): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const err = check(args.platform as string);
@@ -152,7 +152,7 @@ const createEvent: Tool = {
     ],
     capabilities: ['network:fetch'],
   },
-  execute: async (args, ctx): Promise<ToolResult> => {
+  execute: async (args, ctx): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const c = check(args.platform as string);
@@ -233,7 +233,7 @@ const listEvents: Tool = {
     ],
     capabilities: ['network:fetch'],
   },
-  execute: async (args, ctx): Promise<ToolResult> => {
+  execute: async (args, ctx): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const err = check(args.platform as string);
@@ -307,7 +307,7 @@ const busyTimes: Tool = {
     ],
     capabilities: ['network:fetch'],
   },
-  execute: async (args, ctx): Promise<ToolResult> => {
+  execute: async (args, ctx): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const c = check(args.platform as string);
@@ -394,7 +394,7 @@ const reschedule: Tool = {
     ],
     capabilities: ['network:fetch'],
   },
-  execute: async (args, ctx): Promise<ToolResult> => {
+  execute: async (args, ctx): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const c = check(args.platform as string);

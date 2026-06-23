@@ -1,7 +1,7 @@
 {
   "name": "cortex-plugin-scheduling",
-  "version": "1.0.0",
-  "description": "Smart Scheduling Assistant — Google Calendar, Outlook Calendar, and Cal.com integration for intelligent meeting scheduling with conflict avoidance, agenda prep, and automated rescheduling",
+  "version": "1.0.1",
+  "description": "Smart Scheduling Assistant \u2014 Google Calendar, Outlook Calendar, and Cal.com integration for intelligent meeting scheduling with conflict avoidance, agenda prep, and automated rescheduling",
   "kind": "esm",
   "entryPoint": "mod.ts",
   "runtime": "deno",
@@ -9,7 +9,10 @@
   "license": "MIT",
   "repository": "https://github.com/CortexPrism/cortex-plugin-scheduling",
   "homepage": "https://cortexprism.io/marketplace/plugins/scheduling",
-  "capabilities": ["tools", "network:fetch"],
+  "capabilities": [
+    "tools",
+    "network:fetch"
+  ],
   "tools": [
     {
       "name": "sched_find_slots",
@@ -20,7 +23,12 @@
           "type": "string",
           "description": "Calendar platform",
           "required": true,
-          "enum": ["google", "outlook", "calcom", "all"]
+          "enum": [
+            "google",
+            "outlook",
+            "calcom",
+            "all"
+          ]
         },
         {
           "name": "attendees",
@@ -63,9 +71,18 @@
           "type": "string",
           "description": "Calendar platform",
           "required": true,
-          "enum": ["google", "outlook", "calcom"]
+          "enum": [
+            "google",
+            "outlook",
+            "calcom"
+          ]
         },
-        { "name": "title", "type": "string", "description": "Event title", "required": true },
+        {
+          "name": "title",
+          "type": "string",
+          "description": "Event title",
+          "required": true
+        },
         {
           "name": "start_time",
           "type": "string",
@@ -113,7 +130,12 @@
           "type": "string",
           "description": "Calendar platform",
           "required": true,
-          "enum": ["google", "outlook", "calcom", "all"]
+          "enum": [
+            "google",
+            "outlook",
+            "calcom",
+            "all"
+          ]
         },
         {
           "name": "start_date",
@@ -150,7 +172,11 @@
           "type": "string",
           "description": "Calendar platform",
           "required": true,
-          "enum": ["google", "outlook", "calcom"]
+          "enum": [
+            "google",
+            "outlook",
+            "calcom"
+          ]
         },
         {
           "name": "email",
@@ -175,7 +201,11 @@
           "type": "string",
           "description": "Calendar platform",
           "required": true,
-          "enum": ["google", "outlook", "calcom"]
+          "enum": [
+            "google",
+            "outlook",
+            "calcom"
+          ]
         },
         {
           "name": "event_id",
@@ -211,7 +241,9 @@
     }
   ],
   "dependencies": {},
-  "peerDependencies": { "cortex": ">=1.0.0" },
+  "peerDependencies": {
+    "cortex": ">=0.51.0"
+  },
   "ui": {
     "settings": [
       {
@@ -280,7 +312,9 @@
     ]
   },
   "aiDisclosure": {
-    "tools": ["Kilo (DeepSeek) — scaffold and implementation"],
+    "tools": [
+      "Kilo (DeepSeek) \u2014 scaffold and implementation"
+    ],
     "humanReview": true
   }
 }
